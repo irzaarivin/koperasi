@@ -1,15 +1,11 @@
 const itemRepositories = require('./repositories/itemRepositories')
 
-const repositories = (database) => {
-
-    const table = {
-        Item: database('items')
-    }
+const repositories = async (models) => {
+    const { Item } = models
 
     return {
-        itemRepositories: itemRepositories(table)
+        itemRepositories: await itemRepositories(Item)
     }
-    
 }
 
 module.exports = repositories

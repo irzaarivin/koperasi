@@ -10,6 +10,11 @@
     const cors = require('cors')
     const port = 4444
 
+
+    // ======================================================================== //
+    // ======================================================================== //
+
+    // SERVER CONFIG
     app.use(session({ secret: 'gacor-kang-mantap-djiwa', resave: true, saveUninitialized: true }))
     app.use(cors({
         origin: 'http://localhost:3000'
@@ -24,17 +29,23 @@
 
 
     // DATABASE CONFIG
-    const { database, testConnection } = require('./database')
+    const { database, testConnection, Sequelize, sequelize } = require('./database')
+
+    // MODELS
+    const model = require('./models')
+    const models = await model(Sequelize, sequelize)
 
     // REPOSITORIES
-    const repos = require('./repositories.js')
-    const repositories = repos(database)
+    const repository = require('./repositories')
+    const repositories = await repository(models)
 
     // HANDLERS
-    const handlers = require('./handlers')(repositories)
+    const handler = require('./handlers')
+    const handlers = await handler(repositories)
 
     // CONTROLLERS
-    const controllers = require('./controllers.js')(await handlers)
+    const controller = require('./controllers')
+    const controllers = await controller(handlers)
 
 
     // ======================================================================== //

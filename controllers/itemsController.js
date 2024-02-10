@@ -1,18 +1,29 @@
 const itemsController = async (handlers) => {
 
-    const { getAllItems } = await handlers
+    const { getItems, createItem, updateItem, deleteItem } = await handlers
 
-    const getAll = async (data) => {
-        console.log({handlers, data})
-        return await getAllItems(data)
+    const get = async (req) => {
+        const params = req.query
+        return await getItems(params)
     }
 
-    const getById = async (data) => {
-        console.log({handlers, data})
-        return data
+    const create = async (req) => {
+        const data = req.body
+        return await createItem(data)
     }
 
-    return { getAll, getById }
+    const update = async (req) => {
+        const id = req.query.id
+        const data = req.body
+        return await updateItem({id, data})
+    }
+
+    const ddelete = async (req) => {
+        const id = req.query.id
+        return await deleteItem(id)
+    }
+
+    return { create, get, update, ddelete }
 
 }
 

@@ -1,30 +1,50 @@
-const itemRepositories = ({ Item }) => {
-
+module.exports = async (Item) => {
     return {
-
-        // ============= CRUD Dasar ==============
-    
-        createItem: async (data) => {
-            return await Item.insert(data).into('items')
-        },
-        
         getItems: async () => {
-            return await Item.select('*').from('items')
+            try {
+                return await Item.findAll()
+            } catch (error) {
+                console.log({error})
+                throw new Error(error)
+            }
         },
-        
+
+        createItem: async (data) => {
+            try {
+                return await Item.create(data)
+            } catch (error) {
+                console.log({error})
+                throw new Error(error)
+            }
+        },
+
         updateItem: async (id, data) => {
-            return await Item('items').where('id', id).update(data)
+            try {
+                const [rowsAffected] = await Item.update(data, { where: { id } });
+                if (rowsAffected > 0) {
+                    const updatedItem = await Item.findOne({ where: { id } });
+                    return updatedItem
+                } else {
+                    return { error: "Item tidak ditemukan!" };
+                }
+            } catch (error) {
+                console.error(error);
+                throw new Error(error);
+            }
         },
-        
+
         deleteItem: async (id) => {
-            return await Item('items').where('id', id).del()
-        },
-    
-        // ============= CRUD Advance ==============
-
+            try {
+                const rowsAffected = await Item.destroy({ where: { id } });
+                if (rowsAffected > 0) {
+                    return { message: "Item berhasil dihapus" };
+                } else {
+                    return { error: "Item tidak ditemukan" };
+                }
+            } catch (error) {
+                console.error(error);
+                throw new Error(error);
+            }
+        }
     }
-
-
 }
-
-module.exports = itemRepositories

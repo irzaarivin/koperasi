@@ -4,7 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app"
+    "dev": "nodemon app",
+    "test": "nodemon --inspect --exitcrash app",
+    "migrate": "sequelize db:migrate --config=config.js",
+    "migrate:fresh": "sequelize db:migrate:undo:all --config=config.js && sequelize db:migrate --config=config.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,17 +23,17 @@
     "express-session": "^1.17.3",
     "http": "^0.0.1-security",
     "ioredis": "^5.3.2",
-    "joi": "^17.9.2",
+    "joi": "^17.12.1",
     "jsonwebtoken": "^9.0.1",
     "knex": "^3.1.0",
     "matrix-js-sdk": "^30.3.0",
-    "mysql2": "^3.6.5",
+    "mysql2": "^3.9.1",
     "nodemon": "^3.0.2",
     "passport": "^0.6.0",
     "passport-http-bearer": "^1.0.1",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
-    "sequelize": "^6.32.1",
+    "sequelize": "^6.36.0",
     "sequelize-cli": "^6.6.1",
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2"
