@@ -28,6 +28,10 @@ module.exports = {
       status: {
         type: Sequelize.STRING
       },
+      total_sold: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+      },
       image: {
         type: Sequelize.STRING
       },

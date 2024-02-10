@@ -1,11 +1,44 @@
+const { Op } = require('sequelize')
+
 module.exports = async (Item) => {
     return {
-        getItems: async () => {
+        getItems: async (params) => {
             try {
-                return await Item.findAll()
+                const { sold, stock, status } = params;
+
+                let whereClause = {};
+                let orderClause = [];
+                            
+                if (status) {
+                    whereClause.status = status;
+                }
+                            
+                if (sold === 'ASC' || sold === 'DESC') {
+                    orderClause.push(['total_sold', sold]);
+                }
+
+                if (stock === 'ASC' || stock === 'DESC') {
+                    orderClause.push(['stock', stock]);
+                }
+
+                const items = await Item.findAll({ where: whereClause, order: orderClause });
+
+                return items;
             } catch (error) {
                 console.log({error})
                 throw new Error(error)
+            }
+        },
+
+        getOneItem: async (id) => {
+            try {
+                const item = await Item.findOne({
+                    where: { id }
+                });
+                return item;
+            } catch (error) {
+                console.error(error);
+                throw new Error(error);
             }
         },
 
@@ -25,7 +58,7 @@ module.exports = async (Item) => {
                     const updatedItem = await Item.findOne({ where: { id } });
                     return updatedItem
                 } else {
-                    return { error: "Item tidak ditemukan!" };
+                    throw new Error("Item tidak ditemukan!")
                 }
             } catch (error) {
                 console.error(error);
@@ -39,7 +72,7 @@ module.exports = async (Item) => {
                 if (rowsAffected > 0) {
                     return { message: "Item berhasil dihapus" };
                 } else {
-                    return { error: "Item tidak ditemukan" };
+                    throw new Error("Item tidak ditemukan")
                 }
             } catch (error) {
                 console.error(error);

@@ -29,7 +29,7 @@
 
 
     // DATABASE CONFIG
-    const { database, testConnection, Sequelize, sequelize } = require('./database')
+    const { testConnection, Sequelize, sequelize } = require('./database')
 
     // MODELS
     const model = require('./models')

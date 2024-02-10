@@ -1,10 +1,12 @@
 const itemRepositories = require('./repositories/itemRepositories')
+const transactionRepositories = require('./repositories/transactionRepositories')
 
 const repositories = async (models) => {
-    const { Item } = models
+    const { Item, Transaction } = models
 
     return {
-        itemRepositories: await itemRepositories(Item)
+        itemRepositories: await itemRepositories(Item),
+        transactionRepositories: await transactionRepositories(Transaction)
     }
 }
 

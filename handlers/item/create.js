@@ -35,7 +35,6 @@ const validate = (data) => {
     return error;
 }
 
-
 const createItem = async (repositories, data) => {
     const { createItem } = repositories.itemRepositories
 
