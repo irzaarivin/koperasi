@@ -28,8 +28,10 @@ const updateStockItem = async (repositories, {id, stock}) => {
     const latest = await getOneItem(id)
     if(!latest) return { status: "Failed", message: "Item tidak ditemukan" }
     
-    const totalStock = latest.stock + stock
-    const update = await updateItem(id, { stock: totalStock })
+    const updatedData = {}
+    updatedData.stock = latest.stock + stock
+    if(latest.status = 'unavailable') updatedData.status = 'available'
+    const update = await updateItem(id, updatedData)
 
     if(update) return { status: "Success", data: update }
     return { status: "Failed" }

@@ -48,12 +48,16 @@ const createTransaction = async (repositories, data) => {
     const validation = validate(data)
     if(validation) return { status: "Failed", error: validation.message }
 
+    const updatedData = {}
     const item = await getOneItem(itemId)
     if(!item) return { status: "Failed", message: "Item tidak ditemukan" }
-    if(quantity > item.stock || item.stock == 0) return { status: "Failed", message: `Stok ${item.stock == 0 ? 'Habis' : 'tersisa ' + item.stock}` }
+    if(item.status == 'unavailable' && (quantity > item.stock || item.stock == 0)) return { status: "Failed", message: `Stok ${item.stock == 0 ? 'Habis' : 'tersisa ' + item.stock}` }
     if(totalPrice != (item.price * quantity)) return { status: "Failed", message: `Harga tidak sesuai, seharusnya ${item.price * quantity}` }
+    updatedData.stock = item.stock - quantity
+    updatedData.total_sold = item.total_sold + quantity
+    if(item.stock - quantity == 0) updatedData.status = 'unavailable'
 
-    const deplete = await updateItem(itemId, {stock: item.stock - quantity, total_sold: item.total_sold + quantity})
+    const deplete = await updateItem(itemId, updatedData)
     if(!deplete) return { status: "Failed", message: "Gagal mendeplete stok item" }
 
     const insertTransaction = await createTransaction({transactionDate: await thisTime(), ...data}).then(result => {
