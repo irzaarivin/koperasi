@@ -1,6 +1,9 @@
+const { createPublicKey } = require("crypto")
+const createBulkTransaction = require("../handlers/transaction/create-bulk")
+
 const transactionController = async (transactionHandler) => {
 
-    const { getTransactions, createTransaction } = await transactionHandler
+    const { getTransactions, createTransaction, createBulkTransaction } = await transactionHandler
 
     const get = async (req) => {
         const params = req.query
@@ -12,7 +15,12 @@ const transactionController = async (transactionHandler) => {
         return await createTransaction(data)
     }
 
-    return { create, get }
+    const createBulk = async (req) => {
+        const data = req.body
+        return await createBulkTransaction(data)
+    }
+
+    return { create, createBulk, get }
 
 }
 

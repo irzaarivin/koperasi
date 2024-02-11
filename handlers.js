@@ -7,6 +7,7 @@ const deleteItem = require('./handlers/item/delete')
 
 // TRANSACTION HANDLERS
 const createTransaction = require('./handlers/transaction/create')
+const createBulkTransaction = require('./handlers/transaction/create-bulk')
 const getTransactions = require('./handlers/transaction/get')
 
 const handlers = async (repositories) => {
@@ -20,6 +21,7 @@ const handlers = async (repositories) => {
         },
         transaction: {
             createTransaction: createTransaction.bind(null, repositories),
+            createBulkTransaction: createBulkTransaction.bind(null, repositories),
             getTransactions: getTransactions.bind(null, repositories)
         }
     }
