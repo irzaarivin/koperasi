@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "nodemon app",
     "test": "nodemon --inspect --exitcrash app",
+    "seed": "sequelize db:seed:all --config=config.js",
     "migrate": "sequelize db:migrate --config=config.js",
-    "migrate:fresh": "sequelize db:migrate:undo:all --config=config.js && sequelize db:migrate --config=config.js"
+    "migrate:fresh": "sequelize db:migrate:undo:all --config=config.js && sequelize db:migrate --config=config.js",
+    "migrate:fresh:seed": "sequelize db:migrate:undo:all --config=config.js && sequelize db:migrate --config=config.js && sequelize db:seed:all --config=config.js"
   },
   "author": "",
   "license": "ISC",
