@@ -1,11 +1,16 @@
 const itemsController = async (itemHandler) => {
 
-    const { getItems, createItem, updateItem, updateStockItem, deleteItem } = await itemHandler
+    const { getItems, getItemById, createItem, updateItem, updateStockItem, deleteItem } = await itemHandler
 
     const get = async (req) => {
         const params = req.query
         return await getItems(params)
     }
+
+    const getById = async (req) => {
+        const id = req.query.id
+        return await getItemById(id)
+    } 
 
     const create = async (req) => {
         const data = req.body
@@ -29,7 +34,7 @@ const itemsController = async (itemHandler) => {
         return await deleteItem(id)
     }
 
-    return { create, get, update, updateStock, ddelete }
+    return { create, get, getById, update, updateStock, ddelete }
 
 }
 

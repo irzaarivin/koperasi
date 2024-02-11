@@ -1,6 +1,7 @@
 // ITEMS HANDLERS
 const createItem = require('./handlers/item/create')
 const getItems = require('./handlers/item/get')
+const getItemById = require('./handlers/item/get-by-id')
 const updateItem = require('./handlers/item/update')
 const updateStockItem = require('./handlers/item/update-stock')
 const deleteItem = require('./handlers/item/delete')
@@ -15,6 +16,7 @@ const handlers = async (repositories) => {
         item: {
             createItem: createItem.bind(null, repositories),
             getItems: getItems.bind(null, repositories),
+            getItemById: getItemById.bind(null, repositories),
             updateItem: updateItem.bind(null, repositories),
             updateStockItem: updateStockItem.bind(null, repositories),
             deleteItem: deleteItem.bind(null, repositories)

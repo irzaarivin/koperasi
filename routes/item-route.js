@@ -2,7 +2,7 @@ const express = require('express')
 const itemRoutes = express.Router()
 
 module.exports = async (itemsController) => {
-    const { create, get, update, updateStock, ddelete } = await itemsController
+    const { create, get, getById, update, updateStock, ddelete } = await itemsController
 
     itemRoutes.post('/', async (req, res) => {
         res.send(await create(req));
@@ -10,6 +10,10 @@ module.exports = async (itemsController) => {
 
     itemRoutes.get('/', async (req, res) => {
         res.send(await get(req));
+    })
+
+    itemRoutes.get('/find', async (req, res) => {
+        res.send(await getById(req));
     })
 
     itemRoutes.put('/', async (req, res) => {
