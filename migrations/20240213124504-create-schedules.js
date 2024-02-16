@@ -3,34 +3,28 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('Transactions', {
+    await queryInterface.createTable('Schedules', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      itemId: {
-        type: Sequelize.INTEGER,
+      staffId: {
         allowNull: false,
-        references: {
-          model: 'Items',
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        type: Sequelize.INTEGER
       },
-      quantity: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+      date: {
+        allowNull: false,
+        type: Sequelize.DATE
       },
-      totalPrice: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+      status: {
+        allowNull: false,
+        type: Sequelize.STRING
       },
-      transactionDate: {
-        type: Sequelize.DATE,
-        allowNull: false
+      description: {
+        allowNull: true,
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -44,6 +38,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('Transactions');
+    await queryInterface.dropTable('Schedules');
   }
 };

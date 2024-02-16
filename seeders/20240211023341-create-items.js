@@ -22,7 +22,7 @@ module.exports = {
         price: 20000,
         stock: 30,
         status: "available",
-        image: "https://example.com/nasi-goreng.jpg",
+        image: "https://allofresh.id/blog/wp-content/uploads/2023/08/cara-membuat-mie-ayam-4-780x470.jpg",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -33,7 +33,7 @@ module.exports = {
         price: 5000,
         stock: 100,
         status: "available",
-        image: "https://example.com/es-teh.jpg",
+        image: "https://allofresh.id/blog/wp-content/uploads/2023/08/cara-membuat-mie-ayam-4-780x470.jpg",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -44,7 +44,7 @@ module.exports = {
         price: 25000,
         stock: 20,
         status: "available",
-        image: "https://example.com/sate-ayam.jpg",
+        image: "https://allofresh.id/blog/wp-content/uploads/2023/08/cara-membuat-mie-ayam-4-780x470.jpg",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -55,7 +55,7 @@ module.exports = {
         price: 30000,
         stock: 15,
         status: "available",
-        image: "https://example.com/martabak-telur.jpg",
+        image: "https://allofresh.id/blog/wp-content/uploads/2023/08/cara-membuat-mie-ayam-4-780x470.jpg",
         createdAt: new Date(),
         updatedAt: new Date()
       }

@@ -1,29 +1,79 @@
+// module.exports = async (Transaction) => {
+//     return {
+//         getTransactions: async () => {
+//             try {
+//                 return await Transaction.findAll()
+//             } catch (error) {
+//                 console.log({error})
+//                 throw new Error(error)
+//             }
+//         },
+
+//         createTransaction: async (data) => {
+//             try {
+//                 return await Transaction.create(data)
+//             } catch (error) {
+//                 console.log({error})
+//                 throw new Error(error)
+//             }
+//         },
+
+//         updateTransaction: async (id, data) => {
+//             try {
+//                 const [rowsAffected] = await Transaction.update(data, { where: { id } });
+//                 if (rowsAffected > 0) {
+//                     const updatedItem = await Transaction.findOne({ where: { id } });
+//                     return updatedItem
+//                 } else {
+//                     return { error: "Transaction tidak ditemukan!" };
+//                 }
+//             } catch (error) {
+//                 console.error(error);
+//                 throw new Error(error);
+//             }
+//         },
+
+//         deleteTransaction: async (id) => {
+//             try {
+//                 const rowsAffected = await Transaction.destroy({ where: { id } });
+//                 if (rowsAffected > 0) {
+//                     return { message: "Transaction berhasil dihapus" };
+//                 } else {
+//                     return { error: "Transaction tidak ditemukan" };
+//                 }
+//             } catch (error) {
+//                 console.error(error);
+//                 throw new Error(error);
+//             }
+//         }
+//     }
+// }
+
 module.exports = async (Transaction) => {
     return {
         getTransactions: async () => {
             try {
-                return await Transaction.findAll()
+                return await Transaction.find();
             } catch (error) {
-                console.log({error})
-                throw new Error(error)
+                console.log({error});
+                throw new Error(error);
             }
         },
 
         createTransaction: async (data) => {
             try {
-                return await Transaction.create(data)
+                return await Transaction.create(data);
             } catch (error) {
-                console.log({error})
-                throw new Error(error)
+                console.log({error});
+                throw new Error(error);
             }
         },
 
         updateTransaction: async (id, data) => {
             try {
-                const [rowsAffected] = await Transaction.update(data, { where: { id } });
-                if (rowsAffected > 0) {
-                    const updatedItem = await Transaction.findOne({ where: { id } });
-                    return updatedItem
+                const updatedItem = await Transaction.findByIdAndUpdate(id, data, { new: true });
+                if (updatedItem) {
+                    return updatedItem;
                 } else {
                     return { error: "Transaction tidak ditemukan!" };
                 }
@@ -35,8 +85,8 @@ module.exports = async (Transaction) => {
 
         deleteTransaction: async (id) => {
             try {
-                const rowsAffected = await Transaction.destroy({ where: { id } });
-                if (rowsAffected > 0) {
+                const deletedItem = await Transaction.findByIdAndDelete(id);
+                if (deletedItem) {
                     return { message: "Transaction berhasil dihapus" };
                 } else {
                     return { error: "Transaction tidak ditemukan" };
@@ -46,5 +96,5 @@ module.exports = async (Transaction) => {
                 throw new Error(error);
             }
         }
-    }
-}
+    };
+};

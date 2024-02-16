@@ -29,11 +29,11 @@
 
 
     // DATABASE CONFIG
-    const { testConnection, Sequelize, sequelize } = require('./database')
+    const { testConnection, Sequelize, sequelize, mongoose, mongooseConnection } = require('./databases')
 
     // MODELS
     const model = require('./models')
-    const models = await model(Sequelize, sequelize)
+    const models = await model(Sequelize, sequelize, mongoose)
 
     // REPOSITORIES
     const repository = require('./repositories')
